@@ -1,0 +1,22 @@
+<form>
+            <select name="country">
+                <option value="">--Filter Country--</option>
+                <?php
+                    $country_query = "SELECT id,name FROM countries";
+                    $country_result = $conn->query($country_query);
+                    if ($country_result->num_rows > 0) {
+                        while ($country_row = $country_result->fetch_assoc()) {
+                            echo '<option value="'. $country_row['id']. '">'. $country_row['name']. '</option>';
+    
+                        }
+                    }
+                ?>
+            </select>
+            <input type="submit" name="submit">Apply Filter
+            
+        </form>
+        
+if (!empty($_GET['country'])) {
+    $countryFilter = $_GET['country'];
+    $sql.= " AND country_id = $countryFilter";
+}
